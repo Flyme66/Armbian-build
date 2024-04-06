@@ -15,7 +15,7 @@ on:
       set_ufi_patch_version:
         description: "ufi_patch_version"
         required: true
-        default: "ufi_61"
+        default: "msm8916-6.6"
   #schedule:
     #- cron: "0 17 * * 0"
 
