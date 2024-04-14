@@ -8,15 +8,15 @@ on:
       set_git_repo:
         description: "repo"
         required: true
-        default: "msm8916-mainline/linux"
+        default: "185264646/linux"
       set_git_branch:
         description: "branch"
         required: true
-        default: "msm8916/6.1"
+        default: "msm8916/mf601_chg"
       set_kernel_patch_version:
         description: "kernel_patch_version"
         required: true
-        default: "msm8916-6.1"
+        default: "msm8916-6.6"
       set_kernel_localversion:
         description: "kernel_localversion"
         required: true
