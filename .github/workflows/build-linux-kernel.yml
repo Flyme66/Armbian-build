@@ -104,6 +104,7 @@ jobs:
           make bindeb-pkg -j$(nproc)
           cd ..
           cp *.deb /workdir
+          cp Image.gz /workdir
           echo "::set-output name=status::success"
 
       - name: Upload image to Release
