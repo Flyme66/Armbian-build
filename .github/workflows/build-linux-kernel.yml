@@ -1,6 +1,4 @@
-
 name: Build Linux Kernel Arm64
-
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -13,7 +11,7 @@ on:
       set_git_branch:
         description: "branch"
         required: true
-        default: "msm8916/6.5.2"
+        default: "msm8916/6.6"
         #default: "msm8916/mf601_chg"
       set_kernel_patch_version:
         description: "kernel_patch_version"
@@ -25,19 +23,15 @@ on:
         default: "-msm8916"
   #schedule:
     #- cron: "0 17 * * 0"
-
 env:
   TZ: Asia/Shanghai
-
 jobs:
   build:
     runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -51,19 +45,16 @@ jobs:
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
           echo "COMPILE_STARTINGTIME=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_ENV
-
           set_git_url="https://github.com/${{ github.event.inputs.set_git_repo }}.git"
           set_git_repo="${{ github.event.inputs.set_git_repo }}"
           if  [[ "linux" = "${set_git_repo}" ]]; then
               set_git_url="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
           fi
           echo "LINUX_GITURL=${set_git_url}" >> $GITHUB_ENV
-
       - name: Download source code
         id: down
         run: |
           git clone --depth 1 -b ${{ github.event.inputs.set_git_branch }} ${{ env.LINUX_GITURL }} linux
-
       - name: Patch kernel
         id: patch
         run: |
@@ -82,15 +73,14 @@ jobs:
                   echo "<== [F] patch file $patch"
               fi
           done
-          cp -f ../patch/${{ github.event.inputs.set_kernel_patch_version }}/msm8916_defconfig arch/arm64/configs/msm8916_defconfig
-          #cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/defconfig arch/arm64/configs/diy_defconfig
+          cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/defconfig arch/arm64/configs/diy_defconfig
       - name: Compile
         id: compile
         run: |
           cd linux/
           export CROSS_COMPILE=aarch64-linux-gnu-
           export ARCH=arm64
-          make msm8916_defconfig
+          make diy_defconfig
           echo -e "$(nproc) thread compile"
           sed -i "s/^.*CONFIG_LOCALVERSION_AUTO.*$/# CONFIG_LOCALVERSION_AUTO is not set/" .config
           sed -i "s/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=\"\"/" .config
@@ -98,18 +88,26 @@ jobs:
           make include/config/kernel.release
           echo "kernel release version ==>"
           cat include/config/kernel.release
-
-          make deb-pkg -j$(nproc)
-       #  make targz-pkg -j$(nproc)
-       #  cp *.tar.gz /workdir
-       #  make bindeb-pkg -j$(nproc)
+          make targz-pkg -j$(nproc)
+          cp *.tar.gz /workdir
+          make bindeb-pkg -j$(nproc)
           cd ..
           cp *.deb /workdir
           cp linux/arch/arm64/boot/Image.gz /workdir
           tar -czf /workdir/dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
           echo "::set-output name=status::success"
-
       - name: Upload image to Release
+
+    
+          
+            
+    
+
+          
+          Expand Down
+    
+    
+  
         uses: ncipollo/release-action@main
         if: steps.compile.outputs.status == 'success' && !cancelled()
         with:
