@@ -18,7 +18,7 @@ on:
       set_kernel_patch_version:
         description: "kernel_patch_version"
         required: true
-        default: "msm8916_defconfig"
+        default: "msm8916-6.6"
       set_kernel_localversion:
         description: "kernel_localversion"
         required: true
