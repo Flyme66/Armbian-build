@@ -82,7 +82,7 @@ jobs:
           cd linux/
           export CROSS_COMPILE=aarch64-linux-gnu-
           export ARCH=arm64
-          make diy_defconfig
+          make msm8916_defconfig
           echo -e "$(nproc) thread compile"
           sed -i "s/^.*CONFIG_LOCALVERSION_AUTO.*$/# CONFIG_LOCALVERSION_AUTO is not set/" .config
           sed -i "s/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=\"\"/" .config
