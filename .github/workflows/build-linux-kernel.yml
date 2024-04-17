@@ -11,7 +11,7 @@ on:
       set_git_branch:
         description: "branch"
         required: true
-        default: "msm8916/6.6"
+        default: "msm8916/6.5.2"
         #default: "msm8916/mf601_chg"
       set_kernel_patch_version:
         description: "kernel_patch_version"
@@ -88,9 +88,10 @@ jobs:
           make include/config/kernel.release
           echo "kernel release version ==>"
           cat include/config/kernel.release
-          make targz-pkg -j$(nproc)
-          cp *.tar.gz /workdir
-          make bindeb-pkg -j$(nproc)
+          make deb-pkg -j$(nproc)
+          #make targz-pkg -j$(nproc)
+          #cp *.tar.gz /workdir
+          #make bindeb-pkg -j$(nproc)
           cd ..
           cp *.deb /workdir
           cp linux/arch/arm64/boot/Image.gz /workdir
