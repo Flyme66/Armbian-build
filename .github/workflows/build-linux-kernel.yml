@@ -73,7 +73,9 @@ jobs:
                   echo "<== [F] patch file $patch"
               fi
           done
-          cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/defconfig arch/arm64/configs/diy_defconfig
+          #cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/defconfig arch/arm64/configs/diy_defconfig
+          cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/msm8916_defconfig arch/arm64/configs/msm8916_defconfig
+      
       - name: Compile
         id: compile
         run: |
