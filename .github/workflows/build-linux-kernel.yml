@@ -104,7 +104,8 @@ jobs:
           make bindeb-pkg -j$(nproc)
           cd ..
           cp *.deb /workdir
-          cp Imag*.gz /workdir
+          cp linux/arch/arm64/boot/Image.gz /workdir
+          tar -czf /workdir/dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
           echo "::set-output name=status::success"
 
       - name: Upload image to Release
