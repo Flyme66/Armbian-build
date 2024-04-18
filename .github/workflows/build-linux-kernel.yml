@@ -18,7 +18,7 @@ on:
       set_kernel_patch_version:
         description: "kernel_patch_version"
         required: true
-        default: "msm8916-6.5.2"
+        default: "msm8916-6.4"
       set_kernel_localversion:
         description: "kernel_localversion"
         required: true
@@ -80,7 +80,7 @@ jobs:
           cd ..
           cp *.deb /workdir
           cp linux/arch/arm64/boot/Image.gz /workdir
-          tar -czf /workdir/dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
+          tar -czf /workdir/msm8916_dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
           echo "::set-output name=status::success"
 
       - name: Upload image to Release
