@@ -2,6 +2,10 @@
 # Automatically generated file; DO NOT EDIT.
 # Linux/arm64 6.8.0 Kernel Configuration
 #
+
+CONFIG_POWER_SUPPLY=y
+CONFIG_POWER_SUPPLY_HWMON=y
+
 CONFIG_CC_VERSION_TEXT="aarch64-linux-gnu-gcc (Debian 12.2.0-14) 12.2.0"
 CONFIG_CC_IS_GCC=y
 CONFIG_GCC_VERSION=120200
