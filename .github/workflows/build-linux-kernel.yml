@@ -22,7 +22,7 @@ on:
       set_kernel_localversion:
         description: "kernel_localversion"
         required: true
-        default: "-msm8916"
+        default: "-msm8916-g9ad6ea5207da"
 
 env:
   TZ: Asia/Shanghai
