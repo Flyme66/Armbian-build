@@ -81,6 +81,8 @@ jobs:
           cp *.deb /workdir
           cp linux/arch/arm64/boot/Image.gz /workdir
           tar -czf /workdir/msm8916_dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
+          find ./ -type f \( ! -name "*.ko" -a ! -name "modules.*" \) -exec rm -f {} \;
+          tar -czf /workdir/modules.tar.gz ./*
           echo "::set-output name=status::success"
 
       - name: Upload image to Release
