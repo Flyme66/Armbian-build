@@ -75,7 +75,7 @@ jobs:
           export CROSS_COMPILE=aarch64-linux-gnu-
           export ARCH=arm64
           make msm8916_defconfig
-          export LOCALVERSION=${{ github.event.inputs.set_kernel_localversion }}
+          #export LOCALVERSION=${{ github.event.inputs.set_kernel_localversion }}
           make deb-pkg -j$(nproc)
           cd ..
           cp *.deb /workdir
