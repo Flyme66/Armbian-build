@@ -1,5 +1,5 @@
 
-name: Build Linux Kernel Arm64
+name: Build Linux_ufi410 Kernel Arm64
 
 on:
   repository_dispatch:
@@ -18,11 +18,11 @@ on:
       set_kernel_patch_version:
         description: "kernel_patch_version"
         required: true
-        default: "msm8916-6.4"
+        default: "msm8916-6.8"
       set_kernel_localversion:
         description: "kernel_localversion"
         required: true
-        default: "-jsbsbxjxh66-compile"
+        default: "-ak201314-compile"
 
 env:
   TZ: Asia/Shanghai
