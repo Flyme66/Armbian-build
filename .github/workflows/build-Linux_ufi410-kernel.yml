@@ -13,8 +13,8 @@ on:
       set_git_branch:
         description: "branch"
         required: true
-        default: "msm8916/6.4-rc3"
-        #default: "msm8916/mf601_chg"
+        #default: "msm8916/6.4-rc3"
+        default: "old/msm8916/5.18"
       set_kernel_patch_version:
         description: "kernel_patch_version"
         required: true
