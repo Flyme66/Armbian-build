@@ -1,5 +1,5 @@
 
-name: Build Linux_ufi410 Kernel Arm64
+name: Build Linux_ufi410 Kernel6.4 Arm64
 
 on:
   repository_dispatch:
