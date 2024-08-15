@@ -66,7 +66,7 @@ jobs:
         id: patch
         run: |
           cd linux/
-          cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/msm8916_defconfig arch/arm64/configs/msm8916_defconfig
+          cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/msm8953_defconfig arch/arm64/configs/msm8953_defconfig
 
       - name: Compile
         id: compile
@@ -74,13 +74,13 @@ jobs:
           cd linux/
           export CROSS_COMPILE=aarch64-linux-gnu-
           export ARCH=arm64
-          make msm8916_defconfig
+          make msm8953_defconfig
           #export LOCALVERSION=${{ github.event.inputs.set_kernel_localversion }}
           make deb-pkg -j$(nproc)
           cd ..
           cp *.deb /workdir
           cp linux/arch/arm64/boot/Image.gz /workdir
-          tar -czf /workdir/msm8916_dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
+          tar -czf /workdir/msm8953_dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
           find ./ -type f \( ! -name "*.ko" -a ! -name "modules.*" \) -exec rm -f {} \;
           cd linux/
           tar -czf /workdir/modules.tar.gz ./*
