@@ -8,7 +8,7 @@ on:
       set_git_repo:
         description: "repo"
         required: true
-        default: "AK201314/linux"
+        default: "Flyme66/linux"
         #default: "185264646/linux"
       set_git_branch:
         description: "branch"
