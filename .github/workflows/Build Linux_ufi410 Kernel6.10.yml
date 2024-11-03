@@ -1,5 +1,5 @@
 
-name: Build Linux_msm8953 Kernel6.10 Arm64
+name: Build Linux_ufi410 Kernel6.10 Arm64
 
 on:
   repository_dispatch:
@@ -8,17 +8,17 @@ on:
       set_git_repo:
         description: "repo"
         required: true
-        default: "msm8953-mainline/linux"
+        default: "AK201314/linux"
         #default: "185264646/linux"
       set_git_branch:
         description: "branch"
         required: true
-        default: "6.10/main"
+        default: "wip/msm8916/6.10"
         #default: "old/msm8916/5.18"
       set_kernel_patch_version:
         description: "kernel_patch_version"
         required: true
-        default: "msm8953-6.10"
+        default: "msm8916-6.10"
       set_kernel_localversion:
         description: "kernel_localversion"
         required: true
@@ -66,7 +66,7 @@ jobs:
         id: patch
         run: |
           cd linux/
-          cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/msm8953_defconfig arch/arm64/configs/msm8953_defconfig
+          cp ../patch/${{ github.event.inputs.set_kernel_patch_version }}/msm8916_defconfig arch/arm64/configs/msm8916_defconfig
 
       - name: Compile
         id: compile
@@ -74,13 +74,13 @@ jobs:
           cd linux/
           export CROSS_COMPILE=aarch64-linux-gnu-
           export ARCH=arm64
-          make msm8953_defconfig
+          make msm8916_defconfig
           #export LOCALVERSION=${{ github.event.inputs.set_kernel_localversion }}
           make deb-pkg -j$(nproc)
           cd ..
           cp *.deb /workdir
           cp linux/arch/arm64/boot/Image.gz /workdir
-          tar -czf /workdir/msm8953_dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
+          tar -czf /workdir/msm8916_dtb.tar.gz linux/arch/arm64/boot/dts/qcom/*.dtb
           find ./ -type f \( ! -name "*.ko" -a ! -name "modules.*" \) -exec rm -f {} \;
           cd linux/
           tar -czf /workdir/modules.tar.gz ./*
